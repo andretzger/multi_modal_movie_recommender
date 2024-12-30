@@ -55,7 +55,8 @@ class feature_fuser(nn.Module):
                                           nhead = num_heads,
                                           num_encoder_layers = num_layers,
                                           num_decoder_layers = num_layers,
-                                          dim_feedforward=2048 )
+                                          dim_feedforward=2048, 
+                                          batch_first=True )
         self.classifier = nn.Sequential( 
             nn.Linear(input_dim, intermediate_dim), 
             nn.ReLU(), 

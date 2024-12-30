@@ -8,12 +8,11 @@ from PIL import Image
 #class to process the unzipped csv of MovieLens Data into usablem, organized, pandas dataframe for the model 
 class MovieLensDataset(Dataset):
     #initialize the data that is being inputed and how to handle it
-    def __init__(self, MLData_file, posters_dir, tokenizer, transform=None):
+    def __init__(self, MLData_file, posters_dir, transform):
         self.data = self.load_MovieLensData(MLData_file)
         self.posters_dir = posters_dir
-        self.tokenizer = tokenizer
         self.transform = transform
-    
+        
     #determine the number of datapoints that are being used as the length
     def __len__(self):
         return len(self.data)
@@ -30,7 +29,6 @@ class MovieLensDataset(Dataset):
         image = Image.open(poster_path).convert('RGB')
         if self.transform:
             image = self.transform(image)
-
         # Structured data 
         structured_data = torch.tensor([row['userId'], row['movieId'], row['age'],row['occupation'],row['zip']], dtype=torch.float) 
 
